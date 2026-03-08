@@ -50,6 +50,10 @@ html {
   .layouts {
     display: flex;
     height: 100%;
+    nav {
+      display: flex;
+      flex-shrink: 0;
+    }
 
     main {
       margin-right: 20px;

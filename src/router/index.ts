@@ -20,11 +20,16 @@ const router = createRouter({
       name: "Product-list",
       component: () => import("../views/Product/index.vue"),
     },
-    // {
-    //   path: "/order-view",
-    //   name: "Order-view",
-    //   component: () => import("../views/Order/index.vue"),
-    // },
+    {
+      path: "/order-view",
+      name: "Order-view",
+      component: () => import("../views/Order/index.vue"),
+    },
+    {
+      path: "/stock-history",
+      name: "stock-history",
+      component: () => import("../views/StockHistory/index.vue"),
+    },
    
    
   ],

@@ -1,6 +1,6 @@
 <template>
-  <div v-if="route.path !== '/login'">
-    <div>
+  <div class="sidebar">
+    <div class="sidebar-items">
       <RouterLink class="sidebar-item" to="/">
         <p><i class="fa-regular fa-home"></i>ໜ້າຫຼັກ</p>
       </RouterLink>
@@ -9,25 +9,25 @@
         class="sidebar-item"
         :to="{ path: '/category', query: { page: 1, search: '' } }"
       >
-        <p><i class="fa-regular fa-home"></i>Category</p>
+        <p><i class="fa-regular fa-list"></i>Category</p>
       </RouterLink>
 
       <RouterLink
         class="sidebar-item"
         :to="{ path: '/product-list', query: { page: 1 } }"
       >
-        <p><i class="fa-regular fa-home"></i>Product</p>
+        <p><i class="fa-regular fa-list"></i>Product</p>
       </RouterLink>
 
-      <RouterLink class="sidebar-item" to="/avatar">
-        <p><i class="fa-solid fa-users-gear"></i>Order</p>
+      <RouterLink class="sidebar-item" to="/order-view">
+        <p><i class="fa-solid fa-list"></i>Order</p>
       </RouterLink>
 
       <RouterLink class="sidebar-item" to="/stock-history">
         <p><i class="fa-regular fa-list"></i>StockHistory</p>
       </RouterLink>
 
-       <a class="sidebar-item has-child" :class="{ expanded: expanded }">
+      <a class="sidebar-item has-child" :class="{ expanded: expanded }">
         <p @click="expanded = !expanded">
           <i class="fa-regular fa-folder"></i>
           ການຈັດການ
@@ -51,7 +51,7 @@
           </li>
         </ul>
       </a>
-       <RouterLink class="sidebar-item" to="/avatar">
+      <RouterLink class="sidebar-item" to="/avatar">
         <p><i class="fa-solid fa-users-gear"></i>ຂໍ້ມູນພະນັກງານ</p>
       </RouterLink>
     </div>
@@ -94,3 +94,199 @@ const log_Out = async () => {
   await logOut();
 };
 </script>
+<style lang="scss" scoped>
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 220px;
+  min-width: 220px;
+  background-color: #F5C100;
+  border-right: 3px solid #eee
+}
+
+.sidebar-items {
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex-grow: 1;
+
+  .sidebar-item {
+    user-select: none;
+
+    &.router-link-active {
+      p {
+        background-color: #FFF3c4;
+        color: #6b4d15;
+        box-shadow: none;
+        font-weight: 600;
+      }
+
+      i {
+        font-weight: 700;
+      }
+    }
+
+    // router-link-active
+    p {
+      display: flex;
+      align-items: center;
+      height: 2.5rem;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      transition: all ease-in-out 0.15s;
+      border-radius: 12px;     // ມົນຂື້ນ
+      padding: 0 1rem;
+      font-size: var(--sm-font);
+      color: #4A3000;
+      gap: 0.6rem;
+
+      // &:hover {
+      //   background-color: rgba(255, 255, 255, 0.25);
+      // }
+    }
+
+    i {
+      width: 20px;
+    }
+  }
+
+  .sidebar-item.has-child {
+    flex-direction: column;
+    align-items: flex-start;
+
+    p {
+      display: flex;
+      align-items: center;
+
+      span {
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      
+
+        &::before {
+          content: "";
+          height: 2px;
+          border-radius: 2px;
+          width: 12px;
+          background-color: var(--black-900);
+          position: absolute;
+          transition: all ease-in-out 0.15s;
+        }
+
+        &::after {
+          content: "";
+          height: 12px;
+          width: 2px;
+          background-color: var(--black-900);
+          position: absolute;
+          border-radius: 2px;
+          transition: all ease-in-out 0.15s;
+        }
+      }
+    }
+
+    ul {
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.15s ease-out;
+      border-radius: 6px;
+
+      li {
+        white-space: pre;
+        line-height: 2.8rem;
+        display: flex;
+        align-items: center;
+        padding-right: 2rem;
+
+        a {
+          display: flex;
+
+          &::before {
+            margin-left: 1rem;
+            width: 30px;
+            content: "\e130";
+            font-family: "Font Awesome 6 Pro";
+            font-weight: 700;
+            display: flex;
+            font-size: 0.7rem;
+            padding-left: 5px;
+            color: var(--black-400);
+          }
+
+          &.router-link-active {
+            display: flex;
+            color: var(--primary-900);
+
+            &::before {
+              content: "\e130";
+              font-family: "Font Awesome 6 Pro";
+              font-weight: 700;
+              display: flex;
+              font-size: 0.7rem;
+              width: 30px;
+              padding-left: 5px;
+              color: var(--primary-900);
+            }
+          }
+        }
+      }
+    }
+
+    // ul
+    &.expanded {
+      p {
+        color: var(--primary-900);
+
+        span {
+          &::after {
+            background-color: var(--primary-100);
+            z-index: 0;
+          }
+
+          &::before {
+            z-index: 1;
+            background-color: var(--primary-900);
+          }
+        }
+      }
+
+      ul {
+        height: auto;
+        max-height: 500px;
+        background-color: var(--primary-100);
+      }
+    }
+  }
+}
+
+.logout {
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  gap: 0.5rem;
+  color: var(--black-500);
+  transition: all ease-in-out 0.15s;
+
+  &:hover {
+    color: var(--orange-900);
+
+    &::before {
+      content: "\f52b";
+    }
+  }
+
+  &::before {
+    content: "\f52a";
+    font-family: "Font Awesome 6 Pro";
+    font-weight: 700;
+  }
+}
+</style>

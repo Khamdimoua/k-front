@@ -1,4 +1,5 @@
 import "./assets/css/main.css";
+import "./assets/css/base.css"
 import { createApp } from "vue";
 import { createPinia } from "pinia";
 import 'vue-loading-overlay/dist/css/index.css';
